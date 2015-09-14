@@ -5,7 +5,7 @@ var gameSchema = new Schema({
   title: String,
   platform: String,
   developer: String,
-  genre: String
+  genre: String,
   fans: [{ type: Schema.Types.ObjectId, ref: 'User'}]
 });
 

@@ -14,26 +14,26 @@ router.use(methodOverride(function(req, res){
       }
 }))
 
-//build the REST operations at the base for users
-//this will be accessible from http://127.0.0.1:3000/users if the default route for / is left unchanged
+//build the REST operations at the base for games
+//this will be accessible from http://127.0.0.1:3000/games if the default route for / is left unchanged
 router.route('/')
-    //GET all users
+    //GET all games
     .get(function(req, res, next) {
-        //retrieve all users from Monogo
-        mongoose.model('User').find({}, function (err, users) {
+        //retrieve all games from Monogo
+        mongoose.model('Game').find({}, function (err, games) {
               if (err) {
                   return console.error(err);
               } else {
                   //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
                   res.format({
-                      //HTML response will render the index.jade file in the views/users folder. We are also setting "users" to be an accessible variable in our jade view
+                      //HTML response will render the index.jade file in the views/games folder. We are also setting "games" to be an accessible variable in our jade view
                     html: function(){
-                        res.render('users/index', {
-                              title: 'All my Users',
-                              "users" : users
+                        res.render('games/index', {
+                              title: 'All my Games',
+                              "games" : games
                           });
                     },
-                    //JSON response will show all users in JSON format
+                    //JSON response will show all games in JSON format
                     json: function(){
                         res.json(infophotos);
                     }
@@ -41,50 +41,52 @@ router.route('/')
               }
         });
     })
-    //POST a new user
+    //POST a new game
     .post(function(req, res) {
         // Get values from POST request. These can be done through forms or REST calls. These rely on the "name" attributes for forms
-        var username = req.body.username;
-        var email = req.body.email;
-        var password = req.body.password;
+        var title = req.body.title;
+        var platform = req.body.platform;
+        var developer = req.body.developer;
+        var genre = req.body.genre;
         //call the create function for our database
-        mongoose.model('User').create({
-            username : username,
-            email : email,
-            password : password,
-        }, function (err, user) {
+        mongoose.model('Game').create({
+            title : title,
+            platform : platform,
+            developer : developer,
+            genre : genre
+        }, function (err, game) {
               if (err) {
                   res.send("There was a problem adding the information to the database.");
               } else {
-                  //User has been created
-                  console.log('POST creating new user: ' + user);
+                  //Game has been created
+                  console.log('POST creating new game: ' + game);
                   res.format({
                       //HTML response will set the location and redirect back to the home page. You could also create a 'success' page if that's your thing
                     html: function(){
                         // If it worked, set the header so the address bar doesn't still say /adduser
-                        res.location("users");
+                        res.location("games");
                         // And forward to success page
-                        res.redirect("/users");
+                        res.redirect("/games");
                     },
-                    //JSON response will show the newly created user
+                    //JSON response will show the newly created game
                     json: function(){
-                        res.json(user);
+                        res.json(game);
                     }
                 });
               }
         })
     });
 
-    /* GET New User page. */
+    /* GET New Game page. */
 router.get('/new', function(req, res) {
-    res.render('users/new', { title: 'Add New User' });
+    res.render('games/new', { title: 'Add New Game' });
 });
 
 // route middleware to validate :id
 router.param('id', function(req, res, next, id) {
     //console.log('validating ' + id + ' exists');
     //find the ID in the Database
-    mongoose.model('User').findById(id, function (err, user) {
+    mongoose.model('Game').findById(id, function (err, game) {
         //if it isn't found, we are going to repond with 404
         if (err) {
             console.log(id + ' was not found');
@@ -102,7 +104,7 @@ router.param('id', function(req, res, next, id) {
         //if it is found we continue on
         } else {
             //uncomment this next line if you want to see every JSON document response for every GET/PUT/DELETE call
-            //console.log(user);
+            //console.log(game);
             // once validation is done save the new item in the req
             req.id = id;
             // go to the next thing
@@ -113,73 +115,75 @@ router.param('id', function(req, res, next, id) {
 
 router.route('/:id')
   .get(function(req, res) {
-    mongoose.model('User').findById(req.id, function (err, user) {
+    mongoose.model('Game').findById(req.id, function (err, game) {
       if (err) {
         console.log('GET Error: There was a problem retrieving: ' + err);
       } else {
-        console.log('GET Retrieving ID: ' + user._id);
-        // var userdob = user.dob.toISOString();
-        // userdob = userdob.substring(0, userdob.indexOf('T'))
+        console.log('GET Retrieving ID: ' + game._id);
+        // var gamedob = game.dob.toISOString();
+        // gamedob = gamedob.substring(0, gamedob.indexOf('T'))
         res.format({
           html: function(){
-              res.render('users/show', {
-                // "userdob" : userdob,
-                "user" : user
+              res.render('games/show', {
+                // "gamedob" : gamedob,
+                "game" : game
               });
           },
           json: function(){
-              res.json(user);
+              res.json(game);
           }
         });
       }
     });
   });
 
-  //GET the individual user by Mongo ID
+  //GET the individual game by Mongo ID
   router.get('/:id/edit', function(req, res) {
-      //search for the user within Mongo
-      mongoose.model('User').findById(req.id, function (err, user) {
+      //search for the game within Mongo
+      mongoose.model('Game').findById(req.id, function (err, game) {
           if (err) {
               console.log('GET Error: There was a problem retrieving: ' + err);
           } else {
-              //Return the user
-              console.log('GET Retrieving ID: ' + user._id);
+              //Return the game
+              console.log('GET Retrieving ID: ' + game._id);
               //format the date properly for the value to show correctly in our edit form
-            // var userdob = user.dob.toISOString();
-            // userdob = userdob.substring(0, userdob.indexOf('T'))
+            // var gamedob = game.dob.toISOString();
+            // gamedob = gamedob.substring(0, gamedob.indexOf('T'))
               res.format({
                   //HTML response will render the 'edit.jade' template
                   html: function(){
-                         res.render('users/edit', {
-                            title: 'User' + user._id,
-                          // "userdob" : userdob,
-                            "user" : user
+                         res.render('games/edit', {
+                            title: 'Game' + game._id,
+                          // "gamedob" : gamedob,
+                            "game" : game
                         });
                    },
                    //JSON response will return the JSON output
                   json: function(){
-                         res.json(user);
+                         res.json(game);
                    }
               });
           }
       });
   });
 
-  //PUT to update a user by ID
+  //PUT to update a game by ID
 router.put('/:id/edit', function(req, res) {
     // Get our REST or form values. These rely on the "name" attributes
-    var username = req.body.username;
-    var email = req.body.email;
-    var password = req.body.password;
+    var title = req.body.title;
+    var platform = req.body.platform;
+    var developer = req.body.developer;
+    var genre = req.body.genre;
 
    //find the document by ID
-        mongoose.model('User').findById(req.id, function (err, user) {
+        mongoose.model('Game').findById(req.id, function (err, game) {
             //update it
-            user.update({
-              username : username,
-              email : email,
-              password : password,
-            }, function (err, userID) {
+            game.update({
+                title : title,
+                platform : platform,
+                developer : developer,
+                genre : genre
+            }, function (err, gameID) {
               if (err) {
                   res.send("There was a problem updating the information to the database: " + err);
               }
@@ -187,11 +191,11 @@ router.put('/:id/edit', function(req, res) {
                       //HTML responds by going back to the page or you can be fancy and create a new view that shows a success page.
                       res.format({
                           html: function(){
-                               res.redirect("/users/" + user._id);
+                               res.redirect("/games/" + game._id);
                          },
                          //JSON responds showing the updated values
                         json: function(){
-                               res.json(user);
+                               res.json(game);
                          }
                       });
                }
@@ -199,29 +203,29 @@ router.put('/:id/edit', function(req, res) {
         });
 });
 
-//DELETE a User by ID
+//DELETE a Game by ID
 router.delete('/:id/edit', function (req, res){
-    //find user by ID
-    mongoose.model('User').findById(req.id, function (err, user) {
+    //find game by ID
+    mongoose.model('Game').findById(req.id, function (err, game) {
         if (err) {
             return console.error(err);
         } else {
             //remove it from Mongo
-            user.remove(function (err, user) {
+            game.remove(function (err, game) {
                 if (err) {
                     return console.error(err);
                 } else {
                     //Returning success messages saying it was deleted
-                    console.log('DELETE removing ID: ' + user._id);
+                    console.log('DELETE removing ID: ' + game._id);
                     res.format({
                         //HTML returns us back to the main page, or you can create a success page
                           html: function(){
-                               res.redirect("/users");
+                               res.redirect("/games");
                          },
                          //JSON returns the item with the message that is has been deleted
                         json: function(){
                                res.json({message : 'deleted',
-                                   item : user
+                                   item : game
                                });
                          }
                       });
