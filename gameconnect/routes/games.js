@@ -120,12 +120,10 @@ router.route('/:id')
         console.log('GET Error: There was a problem retrieving: ' + err);
       } else {
         console.log('GET Retrieving ID: ' + game._id);
-        // var gamedob = game.dob.toISOString();
-        // gamedob = gamedob.substring(0, gamedob.indexOf('T'))
+
         res.format({
           html: function(){
               res.render('games/show', {
-                // "gamedob" : gamedob,
                 "game" : game
               });
           },
@@ -154,7 +152,6 @@ router.get('/:id/edit', function(req, res) {
                 html: function(){
                        res.render('games/edit', {
                           title: 'Game' + game._id,
-                        // "gamedob" : gamedob,
                           "game" : game
                       });
                  },
