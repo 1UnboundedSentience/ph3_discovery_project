@@ -1,14 +1,28 @@
 extends ../layout
 
 block content
-    h1.
-        #{title}
-    form#formAddUser(name="adduser",method="post",action="/users")
-        p Username:
-            input#inputUsername(type="text", placeholder="ex. John Smith", name="username")
-        p Email:
-            input#inputEmail(type="email", placeholder="ex. 123456", name="email")
-        p Password:
-            input#inputPassword(type="password", name="password")
-        p
-            button#btnSubmit(type="submit") submit
+  .centered
+    h1.centered-text Insert Coin
+    form.pure-form.pure-form-aligned.reg_form(action='/users', method='post')
+      fieldset
+        .pure-control-group
+          label(for='username') Username
+          input#username(type='text', name='username', placeholder='Username', required='')
+        .pure-control-group
+          label(for='password') Password
+          input#password(type='password', name='password', placeholder='Password', required='')
+        .pure-control-group
+          label(for='email') Email Address
+          input#email(type='email', name='email', placeholder='Email Address', required='')
+        br
+        div
+          button.pure-button.pure-button-primary.reg_form_submit(type='submit') Submit
+      br
+      br
+      br
+      a.centered.already_member(href='/users/login') Already a member?
+      br
+      br
+  br
+  br
+  br
