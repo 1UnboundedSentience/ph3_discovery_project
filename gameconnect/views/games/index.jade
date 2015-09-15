@@ -1,20 +1,53 @@
 extends ../layout
 
 block content
-    h1.
-         #{title}
-
-
-    ul
+  .centered
+    h1(style='text-align: center') View All Games Here
+    table.all_games.pure-table.pure-table-bordered
+      thead
+        tr
+          th Title
+          th Platform
+          th Developer
+          th Genre
+          th Delete
+          th Edit
+          th Show
+      tbody
         - each game, i in games
-            li
-                = game.title
-
-                form(action='/games/#{game._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
-                    input(type='hidden',value='DELETE',name='_method')
-                    button(type='submit').
-                        Delete
-                p
-                    a(href='/games/#{game._id}/edit') Edit
-                p
-                    a(href='/games/#{game._id}') Show
+            tr
+              td
+                  = game.title
+              td
+                  = game.platform
+              td
+                  = game.developer
+              td
+                  = game.genre
+              td
+                  form(action='/games/#{game._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
+                      input(type='hidden',value='DELETE',name='_method')
+                      button(type='submit').
+                          Delete
+              td
+                      a(href='/games/#{game._id}/edit') Edit
+              td
+                      a(href='/games/#{game._id}') Show
+    br
+    button.show_add_form.add-fav.pure-button Add a Game
+    form.add_game.pure-form.pure-form-aligned(action='/games', method='post')
+      fieldset
+        .pure-control-group
+          label(for='title') Title
+          input#title(type='text', name='title', placeholder='Title', required='')
+        .pure-control-group
+          label(for='platform') Platform
+          input#platform(type='text', name='platform', placeholder='Platform', required='')
+        .pure-control-group
+          label(for='developer') Developer
+          input#developer(type='text', name='developer', placeholder='Developer', required='')
+        .pure-control-group
+          label(for='genre') Genre
+          input#genre(type='text', name='genre', placeholder='Genre', required='')
+        div
+          button.add_form_submit.pure-button.pure-button-primary(type='submit') Submit
