@@ -3,16 +3,15 @@ extends ../layout
 block content
   .centered
     h1(style='text-align: center') View All Games Here
-    table.all_games.pure-table.pure-table-bordered
+    table.all_games.pure-table.pure-table-bordered.centered
       thead
-        tr
+        tr.centered-text
           th Title
           th Platform
           th Developer
           th Genre
-          th Delete
           th Edit
-          th Show
+          th Delete
       tbody
         - each game, i in games
             tr
@@ -25,16 +24,15 @@ block content
               td
                   = game.genre
               td
+                      a(href='/games/#{game._id}/edit') Edit
+              td
                   form(action='/games/#{game._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
                       input(type='hidden',value='DELETE',name='_method')
                       button(type='submit').
                           Delete
-              td
-                      a(href='/games/#{game._id}/edit') Edit
-              td
-                      a(href='/games/#{game._id}') Show
     br
-    button.show_add_form.add-fav.pure-button Add a Game
+    a(href="/games/new")
+      button.show_add_form.add-fav.pure-button Add a Game
     form.add_game.pure-form.pure-form-aligned(action='/games', method='post')
       fieldset
         .pure-control-group

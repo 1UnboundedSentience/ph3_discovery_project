@@ -1,7 +1,10 @@
 extends ../layout
 
 block content
-    h1.
-        User Details
-    p Username: #{user.username}
-    p Email: #{user.email}
+  .centered
+    h1.centered-text User Details
+    p.centered-text Username: #{user.username}
+    p.centered-text Email: #{user.email}
+    br
+    br
+    a.centered.centered-text(href="/users") Return to Index

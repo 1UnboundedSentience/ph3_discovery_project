@@ -3,14 +3,13 @@ extends ../layout
 block content
   .centered
     h1(style='text-align: center') View All Users Here
-    table.all_users.pure-table.pure-table-bordered
+    table.all_users.pure-table.pure-table-bordered.centered
       thead
-        tr
+        tr.centered-text
           th Username
           th Email
-          th Delete
           th Edit
-          th Show
+          th Delete
       tbody
         - each user, i in users
             tr
@@ -19,12 +18,10 @@ block content
               td
                   = user.email
               td
+                      a(href='/users/#{user._id}/edit') Edit
+              td
                   form(action='/users/#{user._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
                       input(type='hidden',value='DELETE',name='_method')
                       button(type='submit').
                           Delete
-              td
-                      a(href='/users/#{user._id}/edit') Edit
-              td
-                      a(href='/users/#{user._id}') Show
     br

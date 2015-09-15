@@ -1,17 +1,33 @@
+extends ../layout
+
 block content
-    h1.
-        Game ID #{game._id}
-    form(action='/games/#{game._id}/edit',method='post',name='updategame',enctype='application/x-www-form-urlencoded')
-        p Title:
-            input#inputTitle(type='text', value='#{game.title}', name='title')
-        p Platform:
-            input#inputPlatform(type='text', value='#{game.platform}', name='platform')
-        p Developer:
-            input#inputDeveloper(type='text', value='#{game.developer}', name='developer')
-        p Genre:
-            input#inputGenre(type='text', value='#{game.genre}', name='genre')
-        p
-            input(type='hidden',value='PUT',name='_method')
-        p
-            button#btnSubmit(type='submit').
-                Update
+  .centered
+    h1.centered-text Edit Game Details
+    form.pure-form.pure-form-aligned.reg_form(action='/games/#{game._id}/edit',method='post',name='updategame',enctype='application/x-www-form-urlencoded')
+      fieldset
+        .pure-control-group
+          label(for='title') Title
+          input#inputTitle(type='text', value='#{game.title}', name='title')
+        .pure-control-group
+          label(for='platform') Platform
+          input#inputPlatform(type='text', value='#{game.platform}', name='platform')
+        .pure-control-group
+          label(for='developer') Developer
+          input#inputDeveloper(type='text', value='#{game.developer}', name='developer')
+        .pure-control-group
+          label(for='genre') Genre
+          input#inputGenre(type='text', value='#{game.genre}', name='genre')
+        .pure-control-group
+          input(type='hidden',value='PUT',name='_method')
+        br
+        div
+          button.pure-button.pure-button-primary.reg_form_submit(type='submit') Update
+      br
+      br
+      br
+
+      br
+      br
+  br
+  br
+  br

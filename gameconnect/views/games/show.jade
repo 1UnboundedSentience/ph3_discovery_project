@@ -1,9 +1,11 @@
 extends ../layout
 
 block content
-    h1.
-        Game Details
-    p Name: #{game.title}
-    p Platform: #{game.platform}
-    p Developer: #{game.developer}
-    p Genre: #{game.genre}
+  .centered
+    h1.centered-text Game Details
+    p.centered-text Name: #{game.title}
+    p.centered-text Platform: #{game.platform}
+    p.centered-text Developer: #{game.developer}
+    p.centered-text Genre: #{game.genre}
+    br
+    a.centered.centered-text(href="/games") Return to Index
