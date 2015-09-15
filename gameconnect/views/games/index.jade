@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+    h1.
+         #{title}
+    ul
+        - each game, i in games
+            li
+                = game.title
+                = game.platform
+                = game.developer
+                = game.genre
+                = game._id
+                form(action='/games/#{game._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
+                    input(type='hidden',value='DELETE',name='_method')
+                    button(type='submit').
+                        Delete
+                p
+                    a(href='/games/#{game._id}/edit') Edit
+                p
+                    a(href='/games/#{game._id}') Show

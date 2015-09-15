@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+    h1.
+        #{title}
+    form#formAddGame(name="addgame",method="post",action="/games")
+        p Title:
+            input#inputTitle(type="text", placeholder="ex. John Smith", name="title")
+        p Platform:
+            input#inputPlatform(type="text", placeholder="ex. 123456", name="platform")
+        p Developer:
+            input#inputDeveloper(type="text", placeholder="ex. John Smith", name="developer")
+        p Genre:
+            input#inputGenre(type="text", placeholder="ex. John Smith", name="genre")
+        p
+            button#btnSubmit(type="submit") submit
