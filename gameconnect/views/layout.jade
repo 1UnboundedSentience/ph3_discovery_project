@@ -2,6 +2,18 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/application.css', type='text/css')
+    link(rel='stylesheet', href='/stylesheets/pure-min.css', type='text/css')
+    link(href='//fonts.googleapis.com/css?family=Amatic+SC', rel='stylesheet', type='text/css')
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
   body
+    a(href="/") Home
+    br
+    a(href="/games") Games
+    br
+    a(href="/users/new") Sign Up
+    br
+
     block content
+  footer
+    p © GameConnect 2015

@@ -8,7 +8,6 @@ block content
             li
                 = user.username
                 = user.email
-                = user._id
                 form(action='/users/#{user._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
                     input(type='hidden',value='DELETE',name='_method')
                     button(type='submit').

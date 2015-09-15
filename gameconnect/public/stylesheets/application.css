@@ -1,0 +1,57 @@
+.add-fav {
+  margin-left: 43%;
+}
+
+.add_game {
+  display: none;
+  margin-left: 20%;
+}
+
+.add_form_submit {
+  margin-left: 36%;
+}
+
+footer {
+  text-align: center;
+}
+
+.form_error {
+  color: red;
+}
+
+.centered-text {
+  text-align: center;
+}
+
+.centered {
+  width:75%;
+  margin:0 auto;
+}
+
+h1, h3, label, footer, .styled-a {
+  font-family: 'Amatic SC', cursive, bold;
+}
+
+.landing {
+  font-size: 400%;
+}
+
+.upper-left-nav {
+  font-size: 200%;
+}
+
+.login_form, .reg_form {
+  margin-left: 15%;
+}
+
+.login_form_submit {
+  margin-left: 10%;
+}
+
+.not-member, .already_member {
+  margin-left: 30%;
+}
+
+.reg_form_submit {
+  margin-left: 33%;
+}
