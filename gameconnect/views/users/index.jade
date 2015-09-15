@@ -1,18 +1,30 @@
 extends ../layout
 
 block content
-    h1.
-         #{title}
-    ul
+  .centered
+    h1(style='text-align: center') View All Users Here
+    table.all_users.pure-table.pure-table-bordered
+      thead
+        tr
+          th Username
+          th Email
+          th Delete
+          th Edit
+          th Show
+      tbody
         - each user, i in users
-            li
-                = user.username
-                = user.email
-                form(action='/users/#{user._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
-                    input(type='hidden',value='DELETE',name='_method')
-                    button(type='submit').
-                        Delete
-                p
-                    a(href='/users/#{user._id}/edit') Edit
-                p
-                    a(href='/users/#{user._id}') Show
+            tr
+              td
+                  = user.username
+              td
+                  = user.email
+              td
+                  form(action='/users/#{user._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
+                      input(type='hidden',value='DELETE',name='_method')
+                      button(type='submit').
+                          Delete
+              td
+                      a(href='/users/#{user._id}/edit') Edit
+              td
+                      a(href='/users/#{user._id}') Show
+    br

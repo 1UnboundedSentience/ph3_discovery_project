@@ -1,20 +1,31 @@
 extends ../layout
 
 block content
-  h3 Add a New Game
-  form(action='/games', method='post')
-    fieldset
-      div
-        label(for='title') Title
-        input#title(type='text', name='title', placeholder='Title')
-      div
-        label(for='platform') Platform
-        input#platform(type='text', name='platform', placeholder='Platform')
-      div
-        label(for='developer') Developer
-        input#developer(type='text', name='developer', placeholder='Developer')
-      div
-        label(for='genre') Genre
-        input#genre(type='text', name='genre', placeholder='Genre')
-      div
-        button(type='submit') Submit
+  .centered
+    h1.centered-text Add a New Game
+    form.pure-form.pure-form-aligned.reg_form(action='/games', method='post')
+      fieldset
+        .pure-control-group
+          label(for='title') Title
+          input#title(type='text', name='title', placeholder='Title')
+        .pure-control-group
+          label(for='platform') Platform
+          input#platform(type='text', name='platform', placeholder='Platform')
+        .pure-control-group
+          label(for='developer') Developer
+          input#developer(type='text', name='developer', placeholder='Developer')
+        .pure-control-group
+          label(for='genre') Genre
+          input#genre(type='text', name='genre', placeholder='Genre')
+        br
+        div
+          button.pure-button.pure-button-primary.reg_form_submit(type='submit') Submit
+      br
+      br
+      br
+
+      br
+      br
+  br
+  br
+  br

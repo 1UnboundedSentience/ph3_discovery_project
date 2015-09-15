@@ -77,7 +77,7 @@ router.route('/')
         })
     });
 
-    /* GET New Game page. */
+/* GET New Game page. */
 router.get('/new', function(req, res) {
     res.render('games/new', { title: 'Add New Game' });
 });
@@ -137,37 +137,37 @@ router.route('/:id')
     });
   });
 
-  //GET the individual game by Mongo ID
-  router.get('/:id/edit', function(req, res) {
-      //search for the game within Mongo
-      mongoose.model('Game').findById(req.id, function (err, game) {
-          if (err) {
-              console.log('GET Error: There was a problem retrieving: ' + err);
-          } else {
-              //Return the game
-              console.log('GET Retrieving ID: ' + game._id);
-              //format the date properly for the value to show correctly in our edit form
-            // var gamedob = game.dob.toISOString();
-            // gamedob = gamedob.substring(0, gamedob.indexOf('T'))
-              res.format({
-                  //HTML response will render the 'edit.jade' template
-                  html: function(){
-                         res.render('games/edit', {
-                            title: 'Game' + game._id,
-                          // "gamedob" : gamedob,
-                            "game" : game
-                        });
-                   },
-                   //JSON response will return the JSON output
-                  json: function(){
-                         res.json(game);
-                   }
-              });
-          }
-      });
-  });
+//GET the individual game by Mongo ID
+router.get('/:id/edit', function(req, res) {
+    //search for the game within Mongo
+    mongoose.model('Game').findById(req.id, function (err, game) {
+        if (err) {
+            console.log('GET Error: There was a problem retrieving: ' + err);
+        } else {
+            //Return the game
+            console.log('GET Retrieving ID: ' + game._id);
+            //format the date properly for the value to show correctly in our edit form
+          // var gamedob = game.dob.toISOString();
+          // gamedob = gamedob.substring(0, gamedob.indexOf('T'))
+            res.format({
+                //HTML response will render the 'edit.jade' template
+                html: function(){
+                       res.render('games/edit', {
+                          title: 'Game' + game._id,
+                        // "gamedob" : gamedob,
+                          "game" : game
+                      });
+                 },
+                 //JSON response will return the JSON output
+                json: function(){
+                       res.json(game);
+                 }
+            });
+        }
+    });
+});
 
-  //PUT to update a game by ID
+//PUT to update a game by ID
 router.put('/:id/edit', function(req, res) {
     // Get our REST or form values. These rely on the "name" attributes
     var title = req.body.title;
